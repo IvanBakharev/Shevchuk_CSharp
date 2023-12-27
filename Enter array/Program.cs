@@ -6,7 +6,9 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
-//   Конспектирую Шевчука.
+//   Конспектирую Шевчука. 
+#region Conspect
+
 // Сдесь буду конспектировать отдельные моменты по урокам.
 
 /*
@@ -555,9 +557,85 @@ Console.WriteLine($"max = {max}, min = {min}");
 
 */
 
+#endregion
 
 
-// Цикл  WHILE
+                                                                                              //МАССИВЫ
+
+{
+    bool userAuthorized = false; // = AuthorizeUser();
+    {
+
+        string[] loginList = { "Admin", "Ivanova", "Petrova", "Sergeeva", "Semenova", "Vasileva" };
+        string[] passwordList = { "000", "111", "222", "333", "444", "555", "666" };
+
+        int authorizationAttemptCounter = 0;
+        const int ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS = 3;
+        bool authorizationAttemptAvailable = authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
+
+        while (authorizationAttemptAvailable)
+        {
+            string login, password;
+            {
+                Console.Write("Enter you login:\n");
+                login = Console.ReadLine();
+                Console.Write("Enter you password:\n");
+                password = Console.ReadLine();
+            }
+            // authorizzed = TryAouthorizedUser(login, password)
+            {
+                int index = 0;
+
+                while (index < loginList.Length && index < passwordList.Length)
+                {
+                    bool loginMatched, passwordMatched;
+                    {
+                        string loginByCurrentIndex = loginList[index];
+                        loginMatched = loginByCurrentIndex == login;
+                        string passwordByCurrentIndex = passwordList[index];
+                        passwordMatched = passwordByCurrentIndex == password;
+                    }
+
+                    if (loginMatched && passwordMatched)
+                    {
+                        userAuthorized = true;
+                        break;
+                    }
+                    else
+                    {
+                        index++;
+                    }
+                }
+
+            }
+
+            if (userAuthorized)
+            {
+                Console.WriteLine("Вы успешно авторизованы");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Логин или пароль введены не верно");
+                authorizationAttemptAvailable = ++authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
+
+                if (authorizationAttemptAvailable)
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Вы исчерпали количество попыток авторизации. Обратитесь к администратору.");
+                    break;
+                }
+            }
+        }
+
+    }
+    Console.ReadKey();
+}
+
+                                                                                                                   // Цикл  WHILE
 
 
 while (true)
@@ -571,7 +649,7 @@ while (true)
     Console.ReadKey();
 
 
-string COUNTRY_CODES =
+    const string COUNTRY_CODES =
         "======================================================\n" +
         "Азербайджан (994) | Киргизия (996) | Таджикистан (992)\n" +
         "Армения     (374) | Латвия   (371) | Туркмения   (993)\n" +
@@ -813,5 +891,11 @@ string COUNTRY_CODES =
     Console.WriteLine($"Сумма скидки {discount}");
     Console.WriteLine($"Цена со скидкой {discountedPrice}");
 }
+
+
+
+
+
+
 
 

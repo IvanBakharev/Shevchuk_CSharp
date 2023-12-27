@@ -41,7 +41,7 @@ for (int i = 0; i < myArray.Length; i++)
 // Заполнение массива с клавиатуры
 
 #region
-/*
+
 Console.WriteLine("Введите колличество элементов массива:");
 Console.WriteLine();
 
@@ -64,7 +64,7 @@ for (int i = 0; i < myArray.Length; i++)
 {
     Console.WriteLine(myArray[i]);
 }
-*/
+
 #endregion
 
 // ПИРАМИДКИ
