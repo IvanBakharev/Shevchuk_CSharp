@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-#region
+﻿#region
 /*
 Здесь я учусь и постигаю лучший язык - С#
 
@@ -41,7 +39,7 @@ for (int i = 0; i < myArray.Length; i++)
 // Заполнение массива с клавиатуры
 
 #region
-
+/*
 Console.WriteLine("Введите колличество элементов массива:");
 Console.WriteLine();
 
@@ -52,7 +50,7 @@ int[] myArray = new int[size];
 
 for (int i = 0; i < size; i++)
 {
-    Console.WriteLine("Введите элемент массива {0}:", i +1);
+    Console.WriteLine("Введите элемент массива {0}:", i + 1);
     myArray[i] = int.Parse(Console.ReadLine());
 }
 
@@ -64,7 +62,7 @@ for (int i = 0; i < myArray.Length; i++)
 {
     Console.WriteLine(myArray[i]);
 }
-
+*/
 #endregion
 
 // ПИРАМИДКИ
@@ -83,7 +81,7 @@ for (int i = 1; i < 10; i++)
 }
 */
 
-
+/*
 for (int i = 0; i < 11; i++)
 {
     for (int j = 11; j > i; j--)
@@ -93,14 +91,14 @@ for (int i = 0; i < 11; i++)
 
     for (int k = 0; k < i; k++)
     {
-          Console.Write("*");
+        Console.Write("*");
     }
     Console.WriteLine();
 }
-
+*/
 #endregion
 
-// ТЕРНАРНЫЙ ОПЕРАТОР
+
 
 #region
 /*
@@ -114,4 +112,20 @@ Console.WriteLine($"Броня {armore} имеет защиту {defense} и р�
 */
 #endregion
 
+                                                  // ТЕРНАРНЫЙ ОПЕРАТОР
 
+
+int oneNumber = 12;
+
+int twoNumber = 13;
+
+int max;
+
+max = (oneNumber > twoNumber) ? oneNumber : twoNumber;
+
+
+int x = int.Parse(Console.ReadLine());
+int y = int.Parse(Console.ReadLine());
+
+string quadrant = x == 0 ? y == 0 ? "В центре плоскости ординат" : "На оси X" : y == 0 ? "На оси Y" :
+x > 0 ? y > 0 ? "I квадрант" : "IV квадрант" : y > 0 ? "II квадрант" : "III квадрант";

@@ -560,11 +560,13 @@ Console.WriteLine($"max = {max}, min = {min}");
 #endregion
 
 
-                                                                                              //МАССИВЫ
+                                                                                                      //МАССИВЫ
 
+// = AuthorizeUser();
 {
-    bool userAuthorized = false; // = AuthorizeUser();
+    bool userAuthorized; 
     {
+        userAuthorized = false;
 
         string[] loginList = { "Admin", "Ivanova", "Petrova", "Sergeeva", "Semenova", "Vasileva" };
         string[] passwordList = { "000", "111", "222", "333", "444", "555", "666" };
@@ -584,15 +586,13 @@ Console.WriteLine($"max = {max}, min = {min}");
             }
             // authorizzed = TryAouthorizedUser(login, password)
             {
-                int index = 0;
-
-                while (index < loginList.Length && index < passwordList.Length)
+                for (int i = 0; i < loginList.Length && i < passwordList.Length; i++)
                 {
-                    bool loginMatched, passwordMatched;
+                    bool loginMatched, passwordMatched; // Сопоставить логин и пароль
                     {
-                        string loginByCurrentIndex = loginList[index];
+                        string loginByCurrentIndex = loginList[i];
                         loginMatched = loginByCurrentIndex == login;
-                        string passwordByCurrentIndex = passwordList[index];
+                        string passwordByCurrentIndex = passwordList[i];
                         passwordMatched = passwordByCurrentIndex == password;
                     }
 
@@ -601,12 +601,7 @@ Console.WriteLine($"max = {max}, min = {min}");
                         userAuthorized = true;
                         break;
                     }
-                    else
-                    {
-                        index++;
-                    }
                 }
-
             }
 
             if (userAuthorized)
