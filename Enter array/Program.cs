@@ -1,4 +1,5 @@
 ﻿
+using Enter_array;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
@@ -569,83 +570,62 @@ static void RunOutputUserInterface(decimal tilePriceWithRate, decimal totalPrice
     Console.WriteLine($"Сумма скидки: {discount}");
     Console.WriteLine($"Цена со скидкой: {discountedPrice}");
 }
-static (string userLogin, string userPassword ) InputLoginAndPassword()
+static (string userLogin, string userPassword) InputLoginAndPassword()
 {
     Console.Write("Enter you login:\n");
-   string login = Console.ReadLine();
+    string login = Console.ReadLine();
     Console.Write("Enter you password:\n");
-   string password = Console.ReadLine();
+    string password = Console.ReadLine();
 
     return (login, password);
 }
-/// <summary>
-/// авторизует пользователя в системе. Принимает логин и пароль от пользователя.
-/// </summary>
-/// <returns> true - успешная авторизация. false - неуспешная авторизация </returns>
 
-static bool AuthorizeUser() 
+
+static bool AuthorizeUser()
 {
-    bool userAuthorized = false; 
+    bool userAuthorized = false;
 
-        string[] loginList = { "Admin", "Ivanova", "Petrova", "Sergeeva", "Semenova", "Vasileva" };
-        string[] passwordList = { "000", "111", "222", "333", "444", "555", "666" };
 
-        int authorizationAttemptCounter = 0;
-        const int ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS = 3;
-        bool authorizationAttemptAvailable = authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
+    int authorizationAttemptCounter = 0;
+    const int ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS = 3;
+    bool authorizationAttemptAvailable = authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
 
-        while (authorizationAttemptAvailable)
-        {
-            (string userLogin, string userPassword) input = InputLoginAndPassword();
-            string login = input.userLogin, password = input.userPassword;
+    while (authorizationAttemptAvailable)
+    {
+        var input = InputLoginAndPassword();
+        string login = input.userLogin, password = input.userPassword;
 
+        var userAuthorization = new UserAuthorization();
+        userAuthorized = userAuthorization.TryAuthorizeUser(login, password);
 
         // authorizzed = TryAouthorizedUser(login, password)
+
+        if (userAuthorized)
         {
-                for (int i = 0; i < loginList.Length && i < passwordList.Length; i++)
-                {
-                    bool loginMatched, passwordMatched; // Сопоставить логин и пароль
-                    {
-                        string loginByCurrentIndex = loginList[i];
-                        loginMatched = loginByCurrentIndex == login;
-                        string passwordByCurrentIndex = passwordList[i];
-                        passwordMatched = passwordByCurrentIndex == password;
-                    }
+            Console.WriteLine("Вы успешно авторизованы");
+            break;
+        }
+        else
+        {
+            Console.WriteLine("Логин или пароль введены не верно");
+            authorizationAttemptAvailable = ++authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
 
-                    if (loginMatched && passwordMatched)
-                    {
-                        userAuthorized = true;
-                        break;
-                    }
-                }
-            }
-
-            if (userAuthorized)
+            if (authorizationAttemptAvailable)
             {
-                Console.WriteLine("Вы успешно авторизованы");
-                break;
+                continue;
             }
             else
             {
-                Console.WriteLine("Логин или пароль введены не верно");
-                authorizationAttemptAvailable = ++authorizationAttemptCounter < ALLOWABLE_NUMBER_OF_AUTHORIZATION_ATTEMPTS;
-
-                if (authorizationAttemptAvailable)
-                {
-                    continue;
-                }
-                else
-                {
-                    Console.WriteLine("Вы исчерпали количество попыток авторизации. Обратитесь к администратору.");
-                    break;
-                }
+                Console.WriteLine("Вы исчерпали количество попыток авторизации. Обратитесь к администратору.");
+                break;
             }
         }
+    }
 
     return userAuthorized;
 }
 
-bool userAutorized = AuthorizeUser();                                                                                                                   // Цикл  WHILE
+bool userAutorized = AuthorizeUser();                                                                     // Цикл  WHILE
 
 
 while (true)
