@@ -560,13 +560,32 @@ Console.WriteLine($"max = {max}, min = {min}");
 #endregion
 
 
-                                                                                                      //МАССИВЫ
+//МАССИВЫ
 
-// = AuthorizeUser();
+static void RunOutputUserInterface(decimal tilePriceWithRate, decimal totalPriceTiles, decimal discount, decimal discountedPrice)
 {
-    bool userAuthorized; 
-    {
-        userAuthorized = false;
+    Console.WriteLine($"Цена плитки с учетом коэфициента: {tilePriceWithRate}");
+    Console.WriteLine($"Общая стоимость плитки: {totalPriceTiles}");
+    Console.WriteLine($"Сумма скидки: {discount}");
+    Console.WriteLine($"Цена со скидкой: {discountedPrice}");
+}
+static (string userLogin, string userPassword ) InputLoginAndPassword()
+{
+    Console.Write("Enter you login:\n");
+   string login = Console.ReadLine();
+    Console.Write("Enter you password:\n");
+   string password = Console.ReadLine();
+
+    return (login, password);
+}
+/// <summary>
+/// авторизует пользователя в системе. Принимает логин и пароль от пользователя.
+/// </summary>
+/// <returns> true - успешная авторизация. false - неуспешная авторизация </returns>
+
+static bool AuthorizeUser() 
+{
+    bool userAuthorized = false; 
 
         string[] loginList = { "Admin", "Ivanova", "Petrova", "Sergeeva", "Semenova", "Vasileva" };
         string[] passwordList = { "000", "111", "222", "333", "444", "555", "666" };
@@ -577,15 +596,12 @@ Console.WriteLine($"max = {max}, min = {min}");
 
         while (authorizationAttemptAvailable)
         {
-            string login, password;
-            {
-                Console.Write("Enter you login:\n");
-                login = Console.ReadLine();
-                Console.Write("Enter you password:\n");
-                password = Console.ReadLine();
-            }
-            // authorizzed = TryAouthorizedUser(login, password)
-            {
+            (string userLogin, string userPassword) input = InputLoginAndPassword();
+            string login = input.userLogin, password = input.userPassword;
+
+
+        // authorizzed = TryAouthorizedUser(login, password)
+        {
                 for (int i = 0; i < loginList.Length && i < passwordList.Length; i++)
                 {
                     bool loginMatched, passwordMatched; // Сопоставить логин и пароль
@@ -626,11 +642,10 @@ Console.WriteLine($"max = {max}, min = {min}");
             }
         }
 
-    }
-    Console.ReadKey();
+    return userAuthorized;
 }
 
-                                                                                                                   // Цикл  WHILE
+bool userAutorized = AuthorizeUser();                                                                                                                   // Цикл  WHILE
 
 
 while (true)
@@ -739,7 +754,6 @@ while (true)
     priceTiles = decimal.Parse(Console.ReadLine());
 
     decimal rate;
-
     // rate = CalculatePricaRate (countryCode)
     {
         const string UPPERCASE_ENGLISH_LETTER_K = "K";
@@ -850,7 +864,7 @@ while (true)
     decimal tilePriceWithRate = priceTiles * rate;
     decimal totalPriceTiles = quantityTiles * tilePriceWithRate;
 
-    decimal discount = 0;
+    decimal discount;
 
     decimal discountPersentage;
 
@@ -881,10 +895,7 @@ while (true)
 
     decimal discountedPrice = totalPriceTiles - discount;
 
-    Console.WriteLine($"Цена плитки с учетом коэфициента {tilePriceWithRate}");
-    Console.WriteLine($"Общая стоимость плитки {totalPriceTiles}");
-    Console.WriteLine($"Сумма скидки {discount}");
-    Console.WriteLine($"Цена со скидкой {discountedPrice}");
+    RunOutputUserInterface(tilePriceWithRate, totalPriceTiles, discount, discountedPrice);
 }
 
 
